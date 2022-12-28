@@ -1,0 +1,26 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url "https://jitpack.io" }
+        maven {url "https://mvnrepository.com/artifact"}
+
+        maven { url "https://artifact.bytedance.com/repository/Volcengine/"}
+        //公司maven仓库
+//        maven { url 'http://maven.gf.com.cn/releases/'
+//            allowInsecureProtocol = true }
+//        maven { url 'http://maven.gf.com.cn/snapshots/'
+//            allowInsecureProtocol = true }
+    }
+}
+rootProject.name = "TestApp"
+include ':app'
