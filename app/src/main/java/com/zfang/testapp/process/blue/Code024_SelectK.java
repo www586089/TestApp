@@ -31,7 +31,7 @@ public class Code024_SelectK {
         if (qK == k) {
             return nums[q];
         } else if (qK > k) {
-            return selectK(nums, p, qK, k);
+            return selectK(nums, p, q - 1, k);
         } else {
             return selectK(nums, q + 1, r, k - qK);
         }
