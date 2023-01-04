@@ -46,4 +46,31 @@ public class LogUtil {
         nums[j] = nums[i] - nums[j];
         nums[i] = nums[i] - nums[j];
     }
+
+    /**
+     *  单向扫描分区法
+     * 把第一个元素做为划分主元，然后begin++，让begin指向主元的下一个元素，
+     * end则指向数组的最后一个元素，然后让begin 或者end每次移动一步，保证
+     * begin之前的元素都小于等于主元，end之后的元素都大于主元，当end大于begin
+     * 的时候划分结束，此时end之前（index <= end）的元素都是小于等于主元的，
+     * 交换主元与end之上的元素，取end为划分结果。
+     * @param nums
+     * @param begin
+     * @param end
+     * @return
+     */
+    public static int partition(int[] nums, int begin, int end) {
+        int pivot = begin++;
+        while (begin <= end) {
+            if (nums[pivot] >= nums[begin]) {
+                begin++;
+            } else {
+                swap(nums, begin, end);
+                end--;
+            }
+        }
+        swap(nums, end, pivot);
+
+        return end;
+    }
 }
