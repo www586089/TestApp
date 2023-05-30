@@ -1,14 +1,18 @@
 package com.zfang.testapp;
 
 import com.zfang.testapp.node.TreeNode;
+import com.zfang.testapp.process.util.LogUtil;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Stack;
 
@@ -34,7 +38,9 @@ public class Main {
 //        new Main().largestPerimeter(new int[] {3, 6, 2, 3});
 //        new Main().treeTest();
 //        new Main().bitTest();
-        app.weakRefenceTest();
+//        app.weakRefenceTest();
+//        app.dateSelect();
+        app.dateCompute();
     }
     // 创建一个引用队列
     ReferenceQueue<Object> queue = new ReferenceQueue<>();
@@ -58,8 +64,80 @@ public class Main {
 //        System.gc();
         // 再打印队列
         printlnQueue("after");
+//        dateSelect();
     }
 
+    private void dateCompute() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        Calendar calendarStart = Calendar.getInstance();
+        Calendar calendarEnd = Calendar.getInstance();
+        calendarStart.add(Calendar.YEAR, -1);
+        calendarStart.add(Calendar.DAY_OF_YEAR, 1);
+
+        String startTimeStr = sdf.format(calendarStart.getTime());
+        String endTimeStr = sdf.format(calendarEnd.getTime());
+        System.out.println("startTimeStr = " + startTimeStr + ", endTimeStr = " + endTimeStr);
+    }
+
+    private void dateSelect() {
+        int startTime = 0, endTime = 0;
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(Calendar.YEAR, 2023);
+        calendar.set(Calendar.MONTH, 1);
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+//        String endTimeStr = sdf.format(calendar.getTime());
+//        if (endTimeStr.length() > 0) {
+//            endTime = intValue(endTimeStr);
+//        }
+//        calendar.add(Calendar.MONTH, -6);
+//        calendar.add(Calendar.DAY_OF_MONTH, 1);
+//        String startTimeStr = sdf.format(calendar.getTime());
+//        if (startTimeStr.length() > 0) {
+//            startTime = intValue(startTimeStr);
+//        }
+        int nowYear = calendar.get(Calendar.YEAR);
+        int nowMonth = calendar.get(Calendar.MONTH);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        String endTimeStr = sdf.format(calendar.getTime());
+        if (endTimeStr.length() > 0) {
+            endTime = intValue(endTimeStr);
+        }
+        logCalendar(calendar);
+        LogUtil.println("nowYear = " + nowYear + ", nowMonth = " + nowMonth + " time = " + endTime);
+
+        calendar.set(Calendar.MONTH, 12);
+        logCalendar(calendar);
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DATE));
+        logCalendar(calendar);
+        nowMonth = calendar.get(Calendar.MONTH);
+        String time = sdf.format(calendar.getTime());
+        logCalendar(calendar);
+        LogUtil.println("nowYear = " + nowYear + ", nowMonth = " + nowMonth  + " time = " + time);
+
+        log("startTime = " + startTime + ", endTime = " + endTime);
+    }
+
+    private void logCalendar(Calendar calendar) {
+
+        LogUtil.println("getMaximum = " + calendar.getMaximum(Calendar.DATE));
+        LogUtil.println("getActualMaximum = " + calendar.getActualMaximum(Calendar.DATE));
+//
+//        LogUtil.println("getMaximum2 = " + calendar.getMaximum(Calendar.DAY_OF_MONTH));
+//        LogUtil.println("getActualMaximum2 = " + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+    }
+
+
+    public static int intValue(String text) {
+        try {
+            double value = Double.parseDouble(text);
+            return (int) value;
+        } catch (Exception e) {
+            return 0;
+        }
+    }
     private void printlnQueue(String tag) {
         System.out.print(tag);
         Object obj;
